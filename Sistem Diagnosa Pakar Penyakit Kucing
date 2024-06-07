@@ -1,0 +1,336 @@
+CREATE DATABASE sistemDiagnosa
+    DEFAULT CHARACTER SET = 'utf8mb4';
+
+USE sistemDiagnosa;
+
+drop table if exists GEJALA;
+
+drop table if exists HASIL;
+
+drop table if exists KUCING;
+ 
+drop table if exists PENYAKIT;
+
+drop table if exists RULE;
+
+drop table if exists USER;
+ 
+SHOW DATABASES;
+
+create table GEJALA
+(
+   ID_GEJALA            varchar(50) not null,
+   KODE_GEJALA          varchar(50) not null,
+   NAMA_GEJALA          varchar(50) not null,
+   primary key (ID_GEJALA)
+);
+
+USE sistemDiagnosa;
+
+DESC GEJALA;
+
+create table HASIL
+(
+   ID_HASIL             varchar(50) not null,
+   ID_PENYAKIT          varchar(50),
+   ID_KUCING            varchar(50),
+   KETERANGAN           varchar(50) not null,
+   primary key (ID_HASIL)
+);
+
+RENAME TABLE HASIL to RESULT;
+
+USE sistemDiagnosa;
+
+DESC GEJALA;
+ 
+create table KUCING
+(
+   ID_KUCING            varchar(50) not null,
+   ID_USER              varchar(50),
+   JENIS_KELAMIN        varchar(50) not null,
+   NAMA_KUCING          varchar(50) not null,
+   CIRI                 varchar(50) not null,
+   primary key (ID_KUCING)
+);
+
+ALTER TABLE KUCING
+ADD COLUMN USIA_KUCING VARCHAR(50);
+
+DESC KUCING;
+
+drop table if exists KUCING;
+ 
+create table KUCING
+(
+   ID_KUCING            varchar(50) not null,
+   ID_USER              varchar(50),
+   JENIS_KELAMIN        varchar(50) not null,
+   NAMA_KUCING          varchar(50) not null,
+   CIRI                 varchar(50) not null,
+   primary key (ID_KUCING)
+);
+
+ALTER TABLE KUCING
+ADD COLUMN USIA_KUCING VARCHAR(50) ;
+
+drop table if exists KUCING;
+
+create table KUCING
+(
+   ID_KUCING            varchar(50) not null,
+   ID_USER              varchar(50),
+   JENIS_KELAMIN        varchar(50) not null,
+   NAMA_KUCING          varchar(50) not null,
+   CIRI                 varchar(50) not null,
+   primary key (ID_KUCING)
+);
+SHOW DATABASES;
+
+ALTER TABLE KUCING
+ADD COLUMN USIA_KUCING VARCHAR(50) ;
+
+DESC KUCING;
+
+create table PENYAKIT
+(
+   ID_PENYAKIT          varchar(50) not null,
+   KODE_PENYAKIT        varchar(50) not null,
+   NAMA_PENYAKIT        varchar(50) not null,
+   KETERANGAN_PENYAKIT  varchar(50) not null,
+   primary key (ID_PENYAKIT)
+);
+
+ALTER TABLE KUCING
+MODIFY COLUMN USIA_KUCING INT;
+
+DESC KUCING;
+
+ALTER TABLE KUCING
+DROP COLUMN USIA_KUCING;
+
+DESC KUCING;
+
+create table RULE
+(
+   ID_RULE              varchar(50) not null,
+   ID_GEJALA            varchar(50),
+   ID_PENYAKIT          varchar(50),
+   primary key (ID_RULE)
+);
+
+create table USER
+(
+   ID_USER              varchar(50) not null,
+   PASSWORD             varchar(50) not null,
+   VERIFIKASI           varchar(50) not null,
+   NAMA_LENGKAP         varchar(50) not null,
+   EMAIL                varchar(50) not null,
+   primary key (ID_USER)
+);
+
+INSERT INTO USER (ID_USER, PASSWORD, VERIFIKASI, NAMA_LENGKAP, EMAIL)
+    VALUES ("01", "luthfi123", "Terverifikasi", "Luthfi Alfaridzi", "luthfi122@gmail.com"),
+            ("02", "Gijal123", "Terverifikasi", "Gijal", "gijal123@gmail.com"),
+            ("03", "alfaridzi123", "Terverifikasi", "John lin", "john123@gmail.com");
+
+DESC USER;
+
+SELECT * FROM USER LIMIT 100;
+
+UPDATE USER
+SET NAMA_LENGKAP = 'Henry'
+WHERE ID_USER = 02;
+
+SELECT * FROM USER LIMIT 100;
+
+DELETE FROM USER
+WHERE NAMA_LENGKAP = 'John lin';
+
+SELECT * FROM USER LIMIT 100;
+
+INSERT INTO GEJALA (ID_GEJALA, KODE_GEJALA, NAMA_GEJALA)
+    VALUES ("G1", "D12", "Diare"),
+           ("G3", "F8", "FIV"),
+           ("G2", "Z1", "FCV");
+
+create table HASIL
+(
+   ID_HASIL             varchar(50) not null,
+   ID_PENYAKIT          varchar(50),
+   ID_KUCING            varchar(50),
+   KETERANGAN           varchar(50) not null,
+   primary key (ID_HASIL)
+);
+
+INSERT INTO HASIL (ID_HASIL, ID_PENYAKIT, ID_KUCING, KETERANGAN)
+    VALUES ("H12", "P01", "2215", "Perawatan Intensif"),
+           ("H13", "P02", "2216", "Perawatan Ringan"),
+           ("H14", "P03", "2217", "Perawatan Ringan");
+
+INSERT INTO KUCING (ID_KUCING, ID_USER, JENIS_KELAMIN, NAMA_KUCING, CIRI)
+    VALUES ("K01", "U01", "Jantan", "Marco", "Ekor Panjang"),
+           ("K02", "U02", "Betina", "Moro", "3 Warna"),
+           ("K03", "U03", "Jantan", "Mero", "Kaki Pendek");
+
+INSERT INTO PENYAKIT (ID_PENYAKIT, KODE_PENYAKIT, NAMA_PENYAKIT, KETERANGAN_PENYAKIT)
+    VALUES ("D15", "P21", "Kutu kucing", "TIDAK URGENT"),
+           ("D04", "P22", "Feline panleukopenia virus ", "URGENT"),
+           ("D02", "P22", "Ringworm", "TIDAK URGENT");
+
+INSERT INTO RULE (ID_RULE, ID_GEJALA, ID_PENYAKIT)
+    VALUES ("R10", "GA21", "PE2"),
+           ("R04", "GA22", "PE3"),
+           ("R02", "GA22", "PE6");
+
+INSERT INTO USER (ID_USER, PASSWORD, VERIFIKASI, NAMA_LENGKAP, EMAIL)
+    VALUES ("03", "alfaridzi123", "Terverifikasi", "John lin", "john123@gmail.com");
+
+SELECT * FROM USER LIMIT 100;
+ 
+UPDATE HASIL
+SET ID_PENYAKIT = 'D15'
+WHERE ID_HASIL = "H12";
+
+UPDATE HASIL
+SET ID_PENYAKIT = 'D04'
+WHERE ID_HASIL = "H13";
+
+UPDATE HASIL
+SET ID_PENYAKIT = 'D02'
+WHERE ID_HASIL = "H14";
+
+UPDATE HASIL
+SET ID_KUCING = 'K01'
+WHERE ID_HASIL = "H12";
+ 
+UPDATE HASIL
+SET ID_KUCING = 'K02'
+WHERE ID_HASIL = "H13";
+
+UPDATE HASIL
+SET ID_KUCING = 'K03'
+WHERE ID_HASIL = "H14";
+
+UPDATE KUCING
+SET ID_USER = '01'
+WHERE ID_KUCING = "K01";
+
+UPDATE KUCING
+SET ID_USER = '02'
+WHERE ID_KUCING = "K02";
+ 
+UPDATE KUCING
+SET ID_USER = '03'
+WHERE ID_KUCING = "K03";
+
+UPDATE RULE
+SET ID_GEJALA = 'G1'
+WHERE ID_RULE = "R10";
+
+UPDATE RULE
+SET ID_GEJALA = 'G2'
+WHERE ID_RULE = "R04";
+
+UPDATE RULE
+SET ID_GEJALA = 'G3'
+WHERE ID_RULE = "R02";
+
+alter table HASIL add constraint FK_MEMILIKI2 foreign key (ID_PENYAKIT)
+      references PENYAKIT (ID_PENYAKIT) on delete restrict on update restrict;
+ 
+alter table HASIL add constraint FK_MEMPUNYAI foreign key (ID_KUCING)
+      references KUCING (ID_KUCING) on delete restrict on update restrict;
+ 
+alter table KUCING add constraint FK_MEMILIKI foreign key (ID_USER)
+      references USER (ID_USER) on delete restrict on update restrict;
+
+UPDATE RULE
+SET ID_PENYAKIT = 'D15'
+WHERE ID_RULE = "R10";
+ 
+UPDATE RULE
+SET ID_PENYAKIT = 'D04'
+WHERE ID_RULE = "R04";
+
+UPDATE RULE
+SET ID_PENYAKIT = 'D02'
+WHERE ID_RULE = "R02";
+ 
+alter table RULE add constraint FK_MEMPUNYAI1 foreign key (ID_PENYAKIT)
+      references PENYAKIT (ID_PENYAKIT) on delete restrict on update restrict;
+
+alter table RULE add constraint FK_MEMPUNYAI2 foreign key (ID_GEJALA)
+      references GEJALA (ID_GEJALA) on delete restrict on update restrict;
+
+DROP TABLE RESULT;
+
+
+
+DESC GEJALA;
+
+DESC HASIL;
+
+DESC KUCING;
+
+DESC PENYAKIT;
+
+DESC RULE;
+
+DESC USER;
+
+
+SELECT * FROM GEJALA;
+SELECT * FROM USER;
+SELECT * FROM RULE;
+SELECT * FROM KUCING;
+SELECT * FROM PENYAKIT;
+SELECT * FROM HASIL;
+
+/*FUNGSI HIMPUNAN */
+SELECT AVG(ciri) FROM kucing;
+
+SELECT COUNT(ciri) FROM kucing;
+
+SELECT NAMA_LENGKAP FROM USER;
+
+SELECT NAMA_LENGKAP FROM USER
+ORDER BY ID_USER ASC LIMIT 2;
+
+SELECT NAMA_LENGKAP FROM USER
+ORDER BY ID_USER DESC LIMIT 2;
+
+SELECT MAX(ID_USER) FROM USER;
+
+SELECT MIN(ID_USER) FROM USER;
+
+SELECT SUM(ID_USER) FROM USER;
+
+/*FUNGSI SKALAR */
+SELECT UCASE(NAMA_LENGKAP) FROM USER;
+
+SELECT LCASE(NAMA_LENGKAP) FROM USER;
+
+SELECT MID(KETERANGAN, 1, 5)
+FROM HASIL;
+
+SELECT ROUND(3.14159265359, 2);
+
+SELECT NOW() FROM GEJALA;
+
+/* JOIN */
+SELECT USER.NAMA_LENGKAP,KUCING.NAMA_KUCING
+FROM USER
+INNER JOIN KUCING ON USER.ID_USER=KUCING.ID_USER;
+
+SELECT USER.NAMA_LENGKAP,KUCING.NAMA_KUCING
+FROM USER
+LEFT JOIN KUCING ON USER.ID_USER=KUCING.ID_USER;
+
+SELECT USER.NAMA_LENGKAP,KUCING.NAMA_KUCING
+FROM USER
+RIGHT JOIN KUCING ON USER.ID_USER=KUCING.ID_USER
+UNION
+SELECT USER.NAMA_LENGKAP,KUCING.NAMA_KUCING
+FROM USER
+LEFT JOIN KUCING ON USER.ID_USER=KUCING.ID_USER;
